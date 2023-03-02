@@ -8,16 +8,16 @@ if (($_SESSION['level'] != 'admin' and ($_SESSION['level'] != 'petugas'))) {
 
 $query = "  SELECT p.id_pengaduan as id_pengaduan, m.nama as nama, p.tgl_pengaduan as tgl_pengaduan, p.foto as foto, p.isi_laporan as isi_laporan, p.status as status 
             FROM pengaduan p JOIN masyarakat m 
-            WHERE p.nik = m.nik AND p.status is NULL;";
+            WHERE p.nik = m.nik AND p.status = 'proses';";
 $execQuery = mysqli_query($koneksi, $query);
 $getAllData = mysqli_fetch_all($execQuery, MYSQLI_ASSOC);
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $query = "UPDATE pengaduan SET status='0' WHERE id_pengaduan = $id;";
+    $query = "UPDATE pengaduan SET status='selesai' WHERE id_pengaduan = $id;";
     $execQuery = mysqli_query($koneksi, $query);
     if ($execQuery) {
-        header('Location:/pengaduan_masyarakat/administrator/verifikasi/nonvalid.php');
+        header('Location:/pengaduan_masyarakat/administrator/verifikasi/proses.php');
     } else {
         echo '<script>alert("ada proses yang salah")</script>';
     }
@@ -31,7 +31,7 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pengaduan Non Valid</title>
+    <title>Pengaduan Proses</title>
     <link rel="stylesheet" href="../../dist/css/bootstrap.min.css">
 </head>
 
@@ -59,7 +59,7 @@ if (isset($_GET['id'])) {
     </nav>
     <div class="container">
         <center>
-            <h2>List Pengaduan Non Valid</h2>
+            <h2>List Pengaduan Proses</h2>
         </center>
         <div class="row justify-content-center align-middle">
             <table class="table table-striped">
@@ -71,6 +71,7 @@ if (isset($_GET['id'])) {
                         <th>Foto Penunjang</th>
                         <th>Isi Aduan</th>
                         <th>Status</th>
+                        <th>Tanggapan</th>
                         <th>Verifikasi</th>
                     </tr>
                 </thead>
@@ -78,10 +79,10 @@ if (isset($_GET['id'])) {
                     <?php
                     $no = 0;
                     foreach ($getAllData as $data) {
-                        if ($data['status'] == NULL) {
-                            $status = "Belum Valid";
-                        } else if ($data['status'] == '0') {
-                            $status = "Valid";
+                        if ($data['status'] == 'proses') {
+                            $status = "Sedang di proses";
+                        } else if ($data['status'] == 'selesai') {
+                            $status = "Sudah berhasil di proses";
                         } else {
                             $status = "Status tidak diketahui";
                         }
@@ -96,6 +97,13 @@ if (isset($_GET['id'])) {
                                     </td>
                                     <td>$data[isi_laporan]</td>
                                     <td>$status</td>
+                                    <td>
+                                        <a href=/pengaduan_masyarakat/administrator/tanggapan.php?id=$data[id_pengaduan]>
+                                            <button class='btn btn-danger'>
+                                                Tanggapan
+                                            </button>
+                                        </a>
+                                    </td>
                                     <td>
                                         <a href=?id=$data[id_pengaduan]>
                                             <button class='btn btn-primary'>

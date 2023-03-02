@@ -2,6 +2,16 @@
 SESSION_START();
 include "./lib/database.php";
 
+if ($_SESSION['id']) {
+    if ($_SESSION['level'] == 'masyarakat') {
+        header('Location:masyarakat/menulis-pengaduan.php');
+    } elseif (($_SESSION['level'] == 'admin' OR $_SESSION['level'] == 'petugas')){
+        header('Location:administrator/verifikasi/nonvalid.php');
+    } else {
+        header('Location:/pengaduan_masyarakat/logout.php');
+    }
+}
+
 if (isset($_POST['login'])) {
 
     $username = $_POST['username'];

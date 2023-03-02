@@ -2,6 +2,10 @@
 include '../lib/database.php';
 SESSION_START();
 
+if ($_SESSION['level'] != 'masyarakat') {
+    header('Location:/pengaduan_masyarakat/logout.php');
+} 
+
 $id_user = $_SESSION['id'];
 $queryShowData = "SELECT * FROM pengaduan WHERE nik = '$id_user';";
 $execQueryShowData = mysqli_query($koneksi, $queryShowData);
@@ -64,11 +68,13 @@ if (isset($_POST['adukan'])) {
             <div class="col-lg-12">
                 <table class="table table-striped">
                     <thead>
-                        <th>#</th>
-                        <th>Tanggal Aduan</th>
-                        <th>Foto</th>
-                        <th>Isi Laporan</th>
-                        <th>Status</th>
+                        <tr>
+                            <th>#</th>
+                            <th>Tanggal Aduan</th>
+                            <th>Foto</th>
+                            <th>Isi Laporan</th>
+                            <th>Status</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <?php
@@ -76,8 +82,14 @@ if (isset($_POST['adukan'])) {
                             foreach ($getAllData as $data) {
                                 if ($data['status'] == NULL) {
                                     $status = 'Belum Valid';
+                                } else if ($data['status'] == '0'){
+                                    $status = 'Valid';
+                                } else if ($data['status'] == 'selesai'){
+                                    $status = 'Data Selesai di Proses';
+                                } else if ($data['status'] == 'proses'){
+                                    $status = 'Data Sedang di Proses';
                                 } else {
-                                    $status = $data['status'];
+                                    $status = 'Data tidak bisa di identifikasi';
                                 };
                                 $no+=1;
                                 echo "

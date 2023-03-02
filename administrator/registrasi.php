@@ -1,5 +1,10 @@
 <?php
 include '../lib/database.php';
+SESSION_START();
+
+if ($_SESSION['level'] != 'admin') {
+    header('Location:/pengaduan_masyarakat/logout.php');
+}
 
 if (isset($_POST['registrasi'])) {
 
