@@ -36,7 +36,7 @@ foreach ($getDataAduan as $data) {
 
 $id_pengaduan = $_GET['id'];
 $queryTanggapan = " SELECT p.nama_petugas as nama_petugas, t.id_tanggapan as id_tanggapan, t.id_pengaduan as id_pengaduan, t.tgl_tanggapan as tgl_tanggapan, t.tanggapan as tanggapan 
-                    FROM tanggapan t JOIN petugas p WHERE t.id_petugas = p.id_petugas ;";// AND id_pengaduan='$id_pengaduan'
+                    FROM tanggapan t JOIN petugas p WHERE t.id_petugas = p.id_petugas AND id_pengaduan='$id_pengaduan';";
 $execQueryTanggapan = mysqli_query($koneksi, $queryTanggapan);
 $getDataTanggapan = mysqli_fetch_all($execQueryTanggapan, MYSQLI_ASSOC);
 
