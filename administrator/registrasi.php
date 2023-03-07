@@ -29,6 +29,7 @@ if (isset($_POST['registrasi'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,9 +37,16 @@ if (isset($_POST['registrasi'])) {
     <title>Daftar Akun</title>
     <link rel="stylesheet" href="../dist/css/bootstrap.min.css">
 </head>
-<body>
-    <nav class="navbar">
 
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="/pengaduan_masyarakat/logout.php" class="nav-link">Login</a>
+                </li>
+            </ul>
+        </div>
     </nav>
     <div class="container">
         <div class="row justify-content-center align-middle">
@@ -75,4 +83,5 @@ if (isset($_POST['registrasi'])) {
         </div>
     </div>
 </body>
+
 </html>

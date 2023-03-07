@@ -45,8 +45,19 @@ if (isset($_POST['adukan'])) {
     <link rel="stylesheet" href="../dist/css/bootstrap.min.css">
 </head>
 <body>
-    <nav class="navbar">
-
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="/pengaduan_masyarakat/masyarakat/menulis-pengaduan.php" class="nav-link">Manulis Aduan</a>
+                </li>
+            </ul>
+            <div>
+                <?php
+                    echo $_SESSION['nama'].' '.'<a href="/pengaduan_masyarakat/logout.php">Logout</a>';
+                ?>
+            </div>
+        </div>
     </nav>
     <div class="container">
         <div class="row justify-content-center align-middle">

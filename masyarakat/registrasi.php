@@ -32,8 +32,14 @@ if (isset($_POST['registrasi'])) {
     <link rel="stylesheet" href="../dist/css/bootstrap.min.css">
 </head>
 <body>
-    <nav class="navbar">
-
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="/pengaduan_masyarakat/index.php" class="nav-link">Login</a>
+                </li>
+            </ul>
+        </div>
     </nav>
     <div class="container">
         <div class="row justify-content-center align-middle">
